@@ -20,14 +20,14 @@ describe("review model config", () => {
   it("returns complete config by default", () => {
     expect(getReviewModelConfig("complete")).toEqual({
       model: "gemini-2.5-flash",
-      maxOutputTokens: 1800,
+      maxOutputTokens: 2600,
     });
   });
 
   it("returns a concise config for fast mode", () => {
     expect(getReviewModelConfig("fast")).toEqual({
       model: "gemini-2.5-flash",
-      maxOutputTokens: 900,
+      maxOutputTokens: 1400,
     });
   });
 });

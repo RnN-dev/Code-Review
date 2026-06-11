@@ -8,6 +8,10 @@ import { ModelSelect } from "@/components/model-select";
 import { ReviewOutput } from "@/components/review-output";
 import { getReviewResponseError } from "@/lib/review-errors";
 import {
+  isReviewStreamComplete,
+  stripReviewDoneMarker,
+} from "@/lib/review-stream";
+import {
   getInitialTheme,
   THEME_STORAGE_KEY,
   type ThemePreference,
@@ -84,14 +88,22 @@ export default function Home() {
         }
 
         nextCompletion += decoder.decode(value, { stream: true });
-        setCompletion(nextCompletion);
+        setCompletion(stripReviewDoneMarker(nextCompletion));
       }
 
       const remainingText = decoder.decode();
 
       if (remainingText) {
         nextCompletion += remainingText;
-        setCompletion(nextCompletion);
+      }
+
+      const visibleCompletion = stripReviewDoneMarker(nextCompletion);
+      setCompletion(visibleCompletion);
+
+      if (!isReviewStreamComplete(nextCompletion)) {
+        throw new Error(
+          "A resposta chegou incompleta. Tente novamente ou use o modo Completo.",
+        );
       }
     } catch (reviewError) {
       setError(

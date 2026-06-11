@@ -29,7 +29,7 @@ function getErrorMessage(error: Error) {
 }
 
 export function ReviewOutput({ markdown, isLoading, error }: ReviewOutputProps) {
-  if (error) {
+  if (error && !markdown) {
     return (
       <section className="flex min-h-[520px] items-center justify-center rounded-lg border border-red-200 bg-red-50 p-6 text-center text-sm font-medium text-red-700 dark:border-red-950 dark:bg-red-950/30 dark:text-red-300 lg:h-full lg:min-h-0">
         {getErrorMessage(error)}
@@ -100,11 +100,21 @@ export function ReviewOutput({ markdown, isLoading, error }: ReviewOutputProps) 
             Revisão
           </h2>
           <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-            {isLoading ? "Recebendo resposta em tempo real." : "Revisão concluída."}
+            {error
+              ? "Resposta parcial recebida."
+              : isLoading
+                ? "Recebendo resposta em tempo real."
+                : "Revisão concluída."}
           </p>
         </div>
         <CopyButton text={markdown} />
       </div>
+
+      {error ? (
+        <div className="shrink-0 border-b border-red-200 bg-red-50 px-5 py-3 text-sm font-medium text-red-700 dark:border-red-950 dark:bg-red-950/30 dark:text-red-300">
+          {getErrorMessage(error)}
+        </div>
+      ) : null}
 
       <div className="review-markdown panel-scroll prose prose-zinc min-h-0 max-w-none flex-1 overflow-y-auto p-5 prose-headings:font-semibold prose-headings:text-zinc-950 prose-p:leading-7 prose-pre:rounded-md prose-pre:border prose-code:text-[0.9em] dark:prose-invert dark:prose-headings:text-zinc-50">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>

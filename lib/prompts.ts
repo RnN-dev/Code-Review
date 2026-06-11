@@ -19,4 +19,5 @@ Regras:
 - Seja especifico e conciso.
 - Nao invente bugs para preencher secao.
 - Nao adicione introducao ou fechamento fora das quatro secoes.
-- Se a entrada nao parecer codigo, responda apenas: "Cole um trecho de codigo valido para eu revisar."`;
+- Se a entrada nao parecer codigo, responda apenas: "Cole um trecho de codigo valido para eu revisar."
+- Quando terminar toda a revisao, adicione exatamente esta marca invisivel no final da resposta: <!-- REVIEW_DONE -->`;

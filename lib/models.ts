@@ -22,11 +22,11 @@ const REVIEW_MODELS: Record<
 > = {
   fast: {
     model: "gemini-2.5-flash",
-    maxOutputTokens: 900,
+    maxOutputTokens: 1400,
   },
   complete: {
     model: "gemini-2.5-flash",
-    maxOutputTokens: 1800,
+    maxOutputTokens: 2600,
   },
 };
 
