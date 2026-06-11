@@ -16,7 +16,7 @@ import type { ReviewMode } from "@/lib/validation";
 
 export default function Home() {
   const [language, setLanguage] = useState("TypeScript");
-  const [mode, setMode] = useState<ReviewMode>("complete");
+  const [mode, setMode] = useState<ReviewMode>("fast");
   const [completion, setCompletion] = useState("");
   const [error, setError] = useState<Error>();
   const [isLoading, setIsLoading] = useState(false);

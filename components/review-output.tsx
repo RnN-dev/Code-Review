@@ -39,15 +39,31 @@ export function ReviewOutput({ markdown, isLoading, error }: ReviewOutputProps) 
 
   if (!markdown && isLoading) {
     return (
-      <section className="min-h-[520px] rounded-lg border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900 lg:h-full lg:min-h-0">
-        <div className="mb-5 flex items-center justify-between">
+      <section
+        aria-live="polite"
+        className="flex min-h-[520px] flex-col rounded-lg border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900 lg:h-full lg:min-h-0"
+      >
+        <div className="mb-6 flex items-center justify-between">
           <div>
-            <div className="h-4 w-24 rounded bg-zinc-200 dark:bg-zinc-700" />
-            <div className="mt-2 h-3 w-44 rounded bg-zinc-100 dark:bg-zinc-800" />
+            <h2 className="text-base font-semibold text-zinc-950 dark:text-zinc-50">
+              Revisão
+            </h2>
+            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+              Gemini está analisando o código.
+            </p>
           </div>
           <div className="h-10 w-24 rounded bg-zinc-100 dark:bg-zinc-800" />
         </div>
-        <div className="space-y-3">
+
+        <div className="flex flex-1 flex-col justify-center">
+          <div className="mx-auto mb-6 h-10 w-10 animate-spin rounded-full border-2 border-zinc-200 border-t-zinc-950 dark:border-zinc-800 dark:border-t-zinc-50" />
+          <p className="mx-auto max-w-sm text-center text-sm leading-6 text-zinc-600 dark:text-zinc-300">
+            A revisão pode levar alguns segundos. Assim que o primeiro trecho
+            chegar, ele aparece aqui.
+          </p>
+        </div>
+
+        <div className="mt-6 space-y-3">
           {[72, 94, 65, 88, 53, 79, 61].map((width) => (
             <div
               key={width}
