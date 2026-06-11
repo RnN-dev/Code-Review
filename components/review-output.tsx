@@ -11,6 +11,12 @@ interface ReviewOutputProps {
 }
 
 function getErrorMessage(error: Error) {
+  const message = error.message.trim();
+
+  if (message && !message.toLowerCase().includes("failed to fetch")) {
+    return message;
+  }
+
   if (error.message.includes("429")) {
     return "Você atingiu o limite de 10 revisões por hora. Espere um pouco e tente de novo.";
   }

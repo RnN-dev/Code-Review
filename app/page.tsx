@@ -1,34 +1,79 @@
 "use client";
 
-import { useCompletion } from "@ai-sdk/react";
 import { Activity, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { CodeInput } from "@/components/code-input";
 import { LanguageSelect } from "@/components/language-select";
 import { ModelSelect } from "@/components/model-select";
 import { ReviewOutput } from "@/components/review-output";
+import { getReviewResponseError } from "@/lib/review-errors";
 import type { ReviewMode } from "@/lib/validation";
 
 export default function Home() {
   const [language, setLanguage] = useState("TypeScript");
   const [mode, setMode] = useState<ReviewMode>("complete");
-
-  const { complete, completion, error, isLoading, setCompletion } =
-    useCompletion({
-      api: "/api/review",
-      streamProtocol: "text",
-      experimental_throttle: 80,
-    });
+  const [completion, setCompletion] = useState("");
+  const [error, setError] = useState<Error>();
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleReview(code: string) {
     setCompletion("");
-    await complete("", {
-      body: {
-        code,
-        language,
-        mode,
-      },
-    });
+    setError(undefined);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/review", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code,
+          language,
+          mode,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(await getReviewResponseError(response));
+      }
+
+      if (!response.body) {
+        throw new Error(
+          "A resposta da revisao veio vazia. Tente novamente em instantes.",
+        );
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let nextCompletion = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) {
+          break;
+        }
+
+        nextCompletion += decoder.decode(value, { stream: true });
+        setCompletion(nextCompletion);
+      }
+
+      const remainingText = decoder.decode();
+
+      if (remainingText) {
+        nextCompletion += remainingText;
+        setCompletion(nextCompletion);
+      }
+    } catch (reviewError) {
+      setError(
+        reviewError instanceof Error
+          ? reviewError
+          : new Error("Nao consegui concluir a revisao agora."),
+      );
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
