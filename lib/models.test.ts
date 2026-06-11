@@ -7,26 +7,26 @@ describe("review model config", () => {
       {
         value: "fast",
         label: "Rapido",
-        description: "Resposta mais curta para uma primeira leitura.",
+        description: "Gemini 2.5 Flash com resposta mais curta.",
       },
       {
         value: "complete",
         label: "Completo",
-        description: "Analise mais cuidadosa para revisar antes de enviar.",
+        description: "Gemini 2.5 Flash com mais espaco para analise.",
       },
     ]);
   });
 
   it("returns complete config by default", () => {
     expect(getReviewModelConfig("complete")).toEqual({
-      model: "gpt-5.5",
+      model: "gemini-2.5-flash",
       maxOutputTokens: 1800,
     });
   });
 
   it("returns a concise config for fast mode", () => {
     expect(getReviewModelConfig("fast")).toEqual({
-      model: "gpt-5.5",
+      model: "gemini-2.5-flash",
       maxOutputTokens: 900,
     });
   });

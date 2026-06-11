@@ -4,7 +4,7 @@ const mocks = vi.hoisted(() => {
   return {
     limit: vi.fn(),
     streamText: vi.fn(),
-    openai: vi.fn((model: string) => ({ provider: "openai", model })),
+    google: vi.fn((model: string) => ({ provider: "google", model })),
   };
 });
 
@@ -14,8 +14,8 @@ vi.mock("@/lib/rate-limit", () => ({
   }),
 }));
 
-vi.mock("@ai-sdk/openai", () => ({
-  openai: mocks.openai,
+vi.mock("@ai-sdk/google", () => ({
+  google: mocks.google,
 }));
 
 vi.mock("ai", () => ({
@@ -27,7 +27,7 @@ describe("POST /api/review", () => {
     vi.clearAllMocks();
   });
 
-  it("returns 429 before calling OpenAI when rate limit is exceeded", async () => {
+  it("returns 429 before calling Gemini when rate limit is exceeded", async () => {
     mocks.limit.mockResolvedValue({ success: false, remaining: 0 });
     const { POST } = await import("./route");
 
@@ -94,7 +94,7 @@ describe("POST /api/review", () => {
 
     expect(response).toBe(streamResponse);
     expect(response.headers.get("X-RateLimit-Remaining")).toBe("8");
-    expect(mocks.openai).toHaveBeenCalledWith("gpt-5.5");
+    expect(mocks.google).toHaveBeenCalledWith("gemini-2.5-flash");
     expect(mocks.streamText).toHaveBeenCalledOnce();
   });
 });

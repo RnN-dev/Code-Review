@@ -4,28 +4,28 @@ export const REVIEW_MODEL_OPTIONS = [
   {
     value: "fast",
     label: "Rapido",
-    description: "Resposta mais curta para uma primeira leitura.",
+    description: "Gemini 2.5 Flash com resposta mais curta.",
   },
   {
     value: "complete",
     label: "Completo",
-    description: "Analise mais cuidadosa para revisar antes de enviar.",
+    description: "Gemini 2.5 Flash com mais espaco para analise.",
   },
 ] as const;
 
 const REVIEW_MODELS: Record<
   ReviewMode,
   {
-    model: "gpt-5.5";
+    model: "gemini-2.5-flash";
     maxOutputTokens: number;
   }
 > = {
   fast: {
-    model: "gpt-5.5",
+    model: "gemini-2.5-flash",
     maxOutputTokens: 900,
   },
   complete: {
-    model: "gpt-5.5",
+    model: "gemini-2.5-flash",
     maxOutputTokens: 1800,
   },
 };

@@ -16,7 +16,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "CodeReview AI",
   description:
-    "Cole um trecho de codigo e receba uma revisao tecnica em tempo real com OpenAI.",
+    "Cole um trecho de codigo e receba uma revisao tecnica em tempo real com Gemini.",
 };
 
 export default function RootLayout({

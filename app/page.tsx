@@ -73,7 +73,7 @@ export default function Home() {
         </section>
 
         <footer className="pb-3 text-center text-xs text-zinc-500">
-          Modo atual: {mode === "fast" ? "rápido" : "completo"} com OpenAI.
+          Modo atual: {mode === "fast" ? "rápido" : "completo"} com Gemini 2.5 Flash.
         </footer>
       </div>
     </main>

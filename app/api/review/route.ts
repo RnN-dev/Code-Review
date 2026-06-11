@@ -1,4 +1,4 @@
-import { openai } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 import { streamText } from "ai";
 import { getReviewModelConfig } from "@/lib/models";
 import { REVIEW_SYSTEM_PROMPT } from "@/lib/prompts";
@@ -57,7 +57,7 @@ export async function POST(req: Request) {
 
   try {
     const result = streamText({
-      model: openai(modelConfig.model),
+      model: google(modelConfig.model),
       system: REVIEW_SYSTEM_PROMPT,
       maxOutputTokens: modelConfig.maxOutputTokens,
       messages: [

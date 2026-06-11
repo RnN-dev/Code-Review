@@ -10,7 +10,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^3.0.69",
+    "@ai-sdk/google": "^3.0.80",
     "@ai-sdk/react": "^3.0.201",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.38.0",
