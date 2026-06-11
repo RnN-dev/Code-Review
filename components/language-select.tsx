@@ -23,12 +23,12 @@ interface LanguageSelectProps {
 
 export function LanguageSelect({ value, onChange }: LanguageSelectProps) {
   return (
-    <label className="flex min-w-40 flex-col gap-1 text-xs font-medium text-zinc-600">
+    <label className="flex min-w-40 flex-col gap-1 text-xs font-medium text-zinc-600 dark:text-zinc-300">
       Linguagem
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-11 rounded-md border border-zinc-300 bg-white px-3 text-sm font-medium text-zinc-950 outline-none transition focus:border-zinc-950 focus:ring-4 focus:ring-zinc-950/10"
+        className="h-11 rounded-md border border-zinc-300 bg-white px-3 text-sm font-medium text-zinc-950 outline-none transition focus:border-zinc-950 focus:ring-4 focus:ring-zinc-950/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-50 dark:focus:border-zinc-400 dark:focus:ring-white/10"
       >
         {LANGUAGES.map((language) => (
           <option key={language} value={language}>

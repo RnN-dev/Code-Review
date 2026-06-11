@@ -31,7 +31,7 @@ function getErrorMessage(error: Error) {
 export function ReviewOutput({ markdown, isLoading, error }: ReviewOutputProps) {
   if (error) {
     return (
-      <section className="flex min-h-[520px] items-center justify-center rounded-lg border border-red-200 bg-red-50 p-6 text-center text-sm font-medium text-red-700">
+      <section className="flex min-h-[520px] items-center justify-center rounded-lg border border-red-200 bg-red-50 p-6 text-center text-sm font-medium text-red-700 dark:border-red-950 dark:bg-red-950/30 dark:text-red-300 lg:h-full lg:min-h-0">
         {getErrorMessage(error)}
       </section>
     );
@@ -39,19 +39,19 @@ export function ReviewOutput({ markdown, isLoading, error }: ReviewOutputProps) 
 
   if (!markdown && isLoading) {
     return (
-      <section className="min-h-[520px] rounded-lg border border-zinc-200 bg-white p-5">
+      <section className="min-h-[520px] rounded-lg border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900 lg:h-full lg:min-h-0">
         <div className="mb-5 flex items-center justify-between">
           <div>
-            <div className="h-4 w-24 rounded bg-zinc-200" />
-            <div className="mt-2 h-3 w-44 rounded bg-zinc-100" />
+            <div className="h-4 w-24 rounded bg-zinc-200 dark:bg-zinc-700" />
+            <div className="mt-2 h-3 w-44 rounded bg-zinc-100 dark:bg-zinc-800" />
           </div>
-          <div className="h-10 w-24 rounded bg-zinc-100" />
+          <div className="h-10 w-24 rounded bg-zinc-100 dark:bg-zinc-800" />
         </div>
         <div className="space-y-3">
           {[72, 94, 65, 88, 53, 79, 61].map((width) => (
             <div
               key={width}
-              className="h-3 animate-pulse rounded bg-zinc-100"
+              className="h-3 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800"
               style={{ width: `${width}%` }}
             />
           ))}
@@ -62,10 +62,12 @@ export function ReviewOutput({ markdown, isLoading, error }: ReviewOutputProps) 
 
   if (!markdown) {
     return (
-      <section className="flex min-h-[520px] items-center justify-center rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-8 text-center">
+      <section className="flex min-h-[520px] items-center justify-center rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-8 text-center dark:border-zinc-700 dark:bg-zinc-900/70 lg:h-full lg:min-h-0">
         <div className="max-w-sm">
-          <h2 className="text-base font-semibold text-zinc-950">Revisão</h2>
-          <p className="mt-2 text-sm leading-6 text-zinc-500">
+          <h2 className="text-base font-semibold text-zinc-950 dark:text-zinc-50">
+            Revisão
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-zinc-500 dark:text-zinc-400">
             O resultado aparece aqui em tempo real, formatado em markdown e pronto
             para copiar.
           </p>
@@ -75,18 +77,20 @@ export function ReviewOutput({ markdown, isLoading, error }: ReviewOutputProps) 
   }
 
   return (
-    <section className="relative flex min-h-[520px] flex-col rounded-lg border border-zinc-200 bg-white">
-      <div className="flex items-center justify-between gap-4 border-b border-zinc-200 px-5 py-4">
+    <section className="relative flex min-h-[520px] flex-col rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 lg:h-full lg:min-h-0">
+      <div className="flex shrink-0 items-center justify-between gap-4 border-b border-zinc-200 px-5 py-4 dark:border-zinc-800">
         <div>
-          <h2 className="text-base font-semibold text-zinc-950">Revisão</h2>
-          <p className="mt-1 text-sm text-zinc-500">
+          <h2 className="text-base font-semibold text-zinc-950 dark:text-zinc-50">
+            Revisão
+          </h2>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
             {isLoading ? "Recebendo resposta em tempo real." : "Revisão concluída."}
           </p>
         </div>
         <CopyButton text={markdown} />
       </div>
 
-      <div className="prose prose-zinc max-w-none flex-1 overflow-y-auto p-5 prose-headings:font-semibold prose-pre:border prose-pre:border-zinc-200 prose-pre:bg-zinc-50 prose-code:text-[0.9em]">
+      <div className="review-markdown panel-scroll prose prose-zinc min-h-0 max-w-none flex-1 overflow-y-auto p-5 prose-headings:font-semibold prose-headings:text-zinc-950 prose-p:leading-7 prose-pre:rounded-md prose-pre:border prose-code:text-[0.9em] dark:prose-invert dark:prose-headings:text-zinc-50">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
       </div>
     </section>

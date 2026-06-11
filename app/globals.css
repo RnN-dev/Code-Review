@@ -5,6 +5,13 @@
 :root {
   --background: #f4f4f5;
   --foreground: #09090b;
+  color-scheme: light;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  color-scheme: dark;
 }
 
 body {
@@ -30,6 +37,46 @@ html {
 ::selection {
   background: #18181b;
   color: #ffffff;
+}
+
+.dark ::selection {
+  background: #fafafa;
+  color: #09090b;
+}
+
+.review-markdown pre {
+  overflow-x: auto;
+  border-color: #27272a;
+  background: #09090b;
+  color: #fafafa;
+}
+
+.review-markdown pre code {
+  background: transparent;
+  color: inherit;
+  font-weight: 500;
+}
+
+.review-markdown :not(pre) > code {
+  border-radius: 0.25rem;
+  background: #f4f4f5;
+  color: #18181b;
+  padding: 0.125rem 0.25rem;
+  font-weight: 650;
+}
+
+.dark .review-markdown :not(pre) > code {
+  background: #27272a;
+  color: #fafafa;
+}
+
+.panel-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #a1a1aa transparent;
+}
+
+.dark .panel-scroll {
+  scrollbar-color: #52525b transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {

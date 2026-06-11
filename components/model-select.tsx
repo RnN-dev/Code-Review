@@ -11,8 +11,10 @@ interface ModelSelectProps {
 export function ModelSelect({ value, onChange }: ModelSelectProps) {
   return (
     <fieldset className="flex flex-col gap-1">
-      <legend className="text-xs font-medium text-zinc-600">Modo</legend>
-      <div className="grid h-11 grid-cols-2 rounded-md border border-zinc-300 bg-zinc-100 p-1">
+      <legend className="text-xs font-medium text-zinc-600 dark:text-zinc-300">
+        Modo
+      </legend>
+      <div className="grid h-11 grid-cols-2 rounded-md border border-zinc-300 bg-zinc-100 p-1 dark:border-zinc-700 dark:bg-zinc-950">
         {REVIEW_MODEL_OPTIONS.map((option) => (
           <button
             key={option.value}
@@ -20,7 +22,7 @@ export function ModelSelect({ value, onChange }: ModelSelectProps) {
             aria-pressed={value === option.value}
             title={option.description}
             onClick={() => onChange(option.value)}
-            className="rounded px-3 text-sm font-semibold text-zinc-600 transition hover:text-zinc-950 focus:outline-none focus:ring-2 focus:ring-zinc-950/20 aria-pressed:bg-white aria-pressed:text-zinc-950 aria-pressed:shadow-sm"
+            className="rounded px-3 text-sm font-semibold text-zinc-600 transition hover:text-zinc-950 focus:outline-none focus:ring-2 focus:ring-zinc-950/20 aria-pressed:bg-white aria-pressed:text-zinc-950 aria-pressed:shadow-sm dark:text-zinc-300 dark:hover:text-white dark:focus:ring-white/20 dark:aria-pressed:bg-zinc-800 dark:aria-pressed:text-white"
           >
             {option.label}
           </button>
